@@ -12,9 +12,12 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { 
+  max-width: 100%; 
+  overflow-x: hidden; 
+}
 html { scroll-behavior: smooth; }
-body { font-family: "Nunito", sans-serif; background: var(--bg); color: var(--text); cursor: none; overflow-x: hidden; }
-.font-serif { font-family: "Playfair Display", serif; }
+body { font-family: "Nunito", sans-serif; background: var(--bg); color: var(--text); cursor: none; }
 
 /* ── SCROLL PROGRESS ── */
 #scroll-progress { position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));z-index:999;width:0;transition:width .1s; }
@@ -248,9 +251,11 @@ body { font-family: "Nunito", sans-serif; background: var(--bg); color: var(--te
   .stats-bar { flex-direction:column; }
   .stat-divider { width:80px;height:1px; }
   .hero-frame { width:240px;height:300px; }
-  .process-grid { grid-template-columns:1fr 1fr; }
+  .process-grid { grid-template-columns:1fr; } 
+  .palette-card { right: -0.5rem; bottom: -0.5rem; transform: scale(0.85); }
+  .cursor-card { left: -0.5rem; top: 0rem; transform: scale(0.85); }
+  #about { overflow-x: hidden; }
 }
-
 /* ============================================
    DARK MODE
    ============================================ */
