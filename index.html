@@ -1,618 +1,536 @@
+<!-- Robert Romany-->
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-    <meta name="description" content="Robert Romany - Android Developer Portfolio. Expert in Kotlin, Jetpack Compose, and Clean Architecture.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://robert-portfolio.web.app/">
-    <meta property="og:title" content="Robert Romany | Android Developer">
-    <meta property="og:description" content="Android developer portfolio featuring scalable, high-performance apps built with Kotlin, Jetpack Compose, and modern best practices.">
-    <meta property="og:image" content="https://i.postimg.cc/LXk8f0Dm/Coding-Logo.jpg">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://robert-portfolio.web.app/">
-    <meta property="twitter:title" content="Robert Romany | Android Developer">
-    <meta property="twitter:description" content="Android developer portfolio featuring scalable, high-performance apps built with Kotlin, Jetpack Compose, and modern best practices.">
-    <meta property="twitter:image" content="https://i.postimg.cc/LXk8f0Dm/Coding-Logo.jpg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robert Romany | Android Developer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-    <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧑‍💻</text></svg>">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandy Ayman | UI/UX Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Nunito:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="relative">
+<body class="bg-[#FDFCFF] text-[#1E1B4B]">
 
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black">
-        <div class="loading-logo">
-            <span class="loading-r">R</span><span class="loading-dot">.</span>
-        </div>
-        <div class="loading-bar-container">
-            <div class="loading-bar-fill" id="loading-bar"></div>
-        </div>
-        <p class="loading-text font-mono text-xs mt-2 tracking-widest">INITIALIZING...</p>
+<!-- Scroll Progress -->
+<div id="scroll-progress"></div>
+
+<!-- Back to Top -->
+<button id="back-to-top" title="Back to top"><i data-feather="arrow-up" class="w-5 h-5"></i></button>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loading-inner">
+    <div class="loading-logo">Sandy Ayman<span>.</span></div>
+    <div class="loading-bar-wrapper"><div id="loading-bar"></div></div>
+    <p class="loading-text">Crafting experience...</p>
+  </div>
+</div>
+
+<!-- Custom Cursor -->
+<div class="cursor-ring" id="cursor-ring"></div>
+<div class="cursor-dot-s" id="cursor-dot-s"></div>
+
+<!--  NAVBAR  -->
+<nav id="navbar">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" id="nav-logo" class="font-serif text-2xl font-black">Sandy<span id="nav-dot" class="text-violet-400">.</span></a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#process" class="nav-link">Process</a>
+      <a href="#work" class="nav-link">Work</a>
+      <a href="#tools" class="nav-link">Tools</a>
+      <a href="#contact" class="nav-link">Contact</a>
     </div>
-
-    <!-- Scroll Progress Bar -->
-    <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] z-[100] transition-all duration-100" style="width:0%;background:linear-gradient(90deg,#00f15e,#00c74d)"></div>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 shadow-lg" aria-label="Back to top">
-        <i data-feather="arrow-up" class="w-5 h-5"></i>
-    </button>
-
-    <!-- Toast Container -->
-    <div id="toast-container" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] flex flex-col gap-3 items-center"></div>
-
-    <!-- Custom Cursors -->
-    <div class="cursor-dot" style="opacity: 0;"></div>
-    <div class="cursor-outline" style="opacity: 0;"></div>
-
-    <!-- Background Layers -->
-    <div id="code-background" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none overflow-hidden"></div>
-    <div id="bg-layer-1" class="absolute top-0 left-0 z-[-2] h-full w-full transition-opacity duration-500"></div>
-    <div id="bg-layer-2" class="fixed top-0 left-0 z-[-2] h-full w-full transition-opacity duration-500"></div>
-
-    <!-- NAVBAR -->
-    <nav id="navbar" class="fixed w-full z-30 top-0 transition-colors duration-500">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" id="nav-logo" class="text-xl font-black tracking-wider transition-colors duration-500" style="font-family:'Orbitron',sans-serif">
-                Robert<span id="nav-logo-accent">.</span>Romany
-            </a>
-            <div class="hidden md:flex items-center space-x-6">
-                <a href="#hero" class="nav-link transition-colors duration-500 text-sm font-medium">Home</a>
-                <a href="#about" class="nav-link transition-colors duration-500 text-sm font-medium">About</a>
-                <a href="#timeline" class="nav-link transition-colors duration-500 text-sm font-medium">Journey</a>
-                <a href="#skills" class="nav-link transition-colors duration-500 text-sm font-medium">Skills</a>
-                <a href="#projects" class="nav-link transition-colors duration-500 text-sm font-medium">Projects</a>
-                <a href="#testimonials" class="nav-link transition-colors duration-500 text-sm font-medium">Feedback</a>
-                <a href="#contact" class="nav-link transition-colors duration-500 text-sm font-medium">Contact</a>
-            </div>
-            <div class="flex items-center space-x-3">
-                <div id="theme-switcher" class="flex items-center space-x-1">
-                    <button class="theme-btn p-2 rounded-lg" data-theme="dark" title="Dark Mode"><i data-feather="moon" class="w-4 h-4"></i></button>
-                    <button class="theme-btn p-2 rounded-lg" data-theme="light" title="Light Mode"><i data-feather="sun" class="w-4 h-4"></i></button>
-                </div>
-                <button id="login-btn" class="nav-link text-sm transition-colors duration-500">Admin</button>
-                <button id="logout-btn" class="hidden text-red-400 hover:text-red-500 text-sm transition">Logout</button>
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg nav-link">
-                    <i data-feather="menu" class="w-5 h-5" id="menu-icon"></i>
-                </button>
-            </div>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2 border-t border-gray-800">
-            <a href="#hero" class="mobile-nav-link block py-2 text-sm font-medium">Home</a>
-            <a href="#about" class="mobile-nav-link block py-2 text-sm font-medium">About</a>
-            <a href="#timeline" class="mobile-nav-link block py-2 text-sm font-medium">Journey</a>
-            <a href="#skills" class="mobile-nav-link block py-2 text-sm font-medium">Skills</a>
-            <a href="#projects" class="mobile-nav-link block py-2 text-sm font-medium">Projects</a>
-            <a href="#testimonials" class="mobile-nav-link block py-2 text-sm font-medium">Feedback</a>
-            <a href="#contact" class="mobile-nav-link block py-2 text-sm font-medium">Contact</a>
-        </div>
-    </nav>
-
-    <div class="container mx-auto px-6">
-
-        <!-- HERO SECTION -->
-        <section id="hero" class="h-screen flex items-center pt-16">
-            <div class="text-center md:text-left w-full">
-                <!-- Visitor Badge -->
-                <div class="flex justify-center md:justify-start mb-6">
-                    <div id="visitor-badge" class="visitor-badge inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-semibold">
-                        <span class="w-2 h-2 rounded-full bg-[#00f15e] animate-pulse"></span>
-                        <span id="visitor-count-display">— visitors</span>
-                    </div>
-                </div>
-
-                <div class="editable-container">
-                    <p class="hero-greeting text-sm font-mono mb-2 tracking-widest" id="hero-greeting">👋 HELLO, WORLD! I'M</p>
-                    <h1 id="hero-title" class="text-5xl md:text-7xl font-black leading-tight transition-colors duration-500" style="font-family:'Orbitron',sans-serif">
-                        <span id="hero-name" class="transition-colors duration-500">Robert<br>Romany</span>
-                    </h1>
-                    <button id="edit-hero-title-btn" class="edit-icon"><i data-feather="edit-2" class="w-5 h-5"></i></button>
-                </div>
-
-                <div class="editable-container mt-6">
-                    <div class="flex items-center gap-3 justify-center md:justify-start">
-                        <span class="text-lg md:text-xl font-semibold text-gray-400">I build</span>
-                        <span id="typewriter" class="text-lg md:text-xl font-bold typewriter-text"></span>
-                        <span class="typewriter-cursor text-[#00f15e] text-2xl font-thin animate-pulse">|</span>
-                    </div>
-                    <p id="hero-subtitle" class="text-base md:text-lg max-w-2xl mx-auto md:mx-0 mt-4 transition-colors duration-500 text-gray-400">
-                        An Android Software Engineer crafting modern, high-performance, and user-centric mobile applications with Kotlin &amp; Jetpack Compose.
-                    </p>
-                    <button id="edit-hero-subtitle-btn" class="edit-icon"><i data-feather="edit-2" class="w-5 h-5"></i></button>
-                </div>
-
-                <div id="hero-socials" class="mt-10 flex items-center justify-center md:justify-start gap-4">
-                    <a href="https://www.linkedin.com/in/robert-romany-dev/" target="_blank" class="social-btn" aria-label="LinkedIn">
-                        <i data-feather="linkedin" class="w-5 h-5"></i>
-                    </a>
-                    <a href="https://github.com/Robert-x1" target="_blank" class="social-btn" aria-label="GitHub">
-                        <i data-feather="github" class="w-5 h-5"></i>
-                    </a>
-                    <a href="https://web.facebook.com/RobertRomanySoftwareEngineer" target="_blank" class="social-btn" aria-label="Facebook">
-                        <i data-feather="facebook" class="w-5 h-5"></i>
-                    </a>
-                    <a href="https://drive.google.com/file/d/1n2hG5sEccsvmQ8lGFIOWe4UccxXXXFj8/view?usp=sharing" target="_blank" class="cv-btn ml-2">
-                        <i data-feather="download" class="w-4 h-4"></i>
-                        <span>Download CV</span>
-                    </a>
-                </div>
-
-                <div class="mt-10 flex justify-center md:justify-start">
-                    <a href="#about" class="scroll-down-btn">
-                        <span class="text-xs font-mono tracking-widest">SCROLL DOWN</span>
-                        <i data-feather="chevron-down" class="w-4 h-4 animate-bounce mt-1"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- STATS SECTION -->
-        <section id="stats" class="py-16 animate-on-scroll">
-            <div class="flex justify-end mb-4">
-                <button id="edit-stats-btn" class="hidden text-xs font-mono py-1 px-3 rounded-lg transition"><i data-feather="edit-2" class="w-3 h-3 inline mr-1"></i>Edit Stats</button>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                <div class="stat-card text-center">
-                    <div class="stat-number" id="stat-years" data-target="2">0</div>
-                    <div class="stat-suffix">+ Years</div>
-                    <div class="stat-label" id="stat-label-years">Experience</div>
-                </div>
-                <div class="stat-card text-center">
-                    <div class="stat-number" id="stat-apps" data-target="15">0</div>
-                    <div class="stat-suffix">+ Apps</div>
-                    <div class="stat-label" id="stat-label-apps">Built & Deployed</div>
-                </div>
-                <div class="stat-card text-center">
-                    <div class="stat-number" id="stat-clients" data-target="10">0</div>
-                    <div class="stat-suffix">+ Clients</div>
-                    <div class="stat-label" id="stat-label-clients">Satisfied</div>
-                </div>
-                <div class="stat-card text-center">
-                    <div class="stat-number"><span id="stat-lines">∞</span></div>
-                    <div class="stat-suffix">Lines</div>
-                    <div class="stat-label">of Code</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ABOUT SECTION -->
-        <section id="about" class="py-16 animate-on-scroll">
-            <div class="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16">
-                <div class="md:w-1/3 flex-shrink-0 relative editable-container">
-                    <div class="about-image-wrapper">
-                        <img id="about-image" src="https://placehold.co/400x400/0f172a/22d3ee?text=RR" alt="Robert Romany" class="about-img rounded-2xl w-72 h-72 md:w-80 md:h-80 aspect-square object-cover mx-auto transition-all duration-500">
-                        <div class="about-image-glow"></div>
-                    </div>
-                    <button id="edit-about-btn" class="edit-icon"><i data-feather="edit-2" class="w-5 h-5"></i></button>
-                </div>
-                <div class="md:w-2/3 text-center md:text-left">
-                    <p class="section-label">WHO I AM</p>
-                    <h2 id="about-title" class="section-heading transition-colors duration-500">About Me</h2>
-                    <div id="about-underline" class="section-title-underline mb-6 mx-auto md:mx-0"></div>
-                    <p id="about-text" class="leading-relaxed transition-colors duration-500 text-base">
-                        Highly motivated Android Developer with hands-on experience in building modern, efficient mobile applications using Kotlin and Jetpack Compose. Skilled in Clean Architecture, MVVM, Dagger Hilt, Room, and Retrofit, with a strong focus on app lifecycle management and UI/UX details. Proven track record in delivering complex projects. Experienced in technical leadership as an IEEE Vice Head and adept at utilizing AI tools for enhanced productivity.
-                    </p>
-                    <div class="mt-8 flex gap-4 justify-center md:justify-start flex-wrap">
-                        <a href="https://drive.google.com/file/d/1n2hG5sEccsvmQ8lGFIOWe4UccxXXXFj8/view?usp=sharing" target="_blank" class="cv-btn">
-                            <i data-feather="download" class="w-4 h-4"></i>
-                            <span>Download CV</span>
-                        </a>
-                        <a href="#contact" class="outline-btn">
-                            <i data-feather="mail" class="w-4 h-4"></i>
-                            <span>Hire Me</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- EXPERIENCE TIMELINE SECTION -->
-        <section id="timeline" class="py-16 animate-on-scroll">
-            <div class="text-center mb-12">
-                <p class="section-label">MY JOURNEY</p>
-                <div class="flex justify-center items-center gap-4">
-                    <h2 id="timeline-title" class="section-heading transition-colors duration-500">Experience & Education</h2>
-                    <button id="add-timeline-btn" class="hidden font-bold p-2 rounded-full transition"><i data-feather="plus"></i></button>
-                </div>
-                <div id="timeline-underline" class="section-title-underline mt-4 mx-auto"></div>
-            </div>
-            <div class="relative max-w-3xl mx-auto" id="timeline-container">
-                <div class="timeline-line"></div>
-                <!-- Timeline items loaded from Firestore or static -->
-                <div class="timeline-item timeline-left animate-on-scroll">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-date">2023 – Present</div>
-                        <h3 class="timeline-role">Android Developer</h3>
-                        <p class="timeline-company"><i data-feather="briefcase" class="w-3 h-3 inline mr-1"></i> Freelance</p>
-                        <p class="timeline-desc">Building production-ready Android applications using Kotlin, Jetpack Compose and Clean Architecture for various clients.</p>
-                        <div class="timeline-tags">
-                            <span>Kotlin</span><span>Jetpack Compose</span><span>MVVM</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item timeline-right animate-on-scroll">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-date">2022 – 2023</div>
-                        <h3 class="timeline-role">IEEE Vice Head</h3>
-                        <p class="timeline-company"><i data-feather="users" class="w-3 h-3 inline mr-1"></i> IEEE Student Branch</p>
-                        <p class="timeline-desc">Technical leadership role overseeing workshops, events, and mentoring junior developers in mobile app development.</p>
-                        <div class="timeline-tags">
-                            <span>Leadership</span><span>Mentoring</span><span>Android</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item timeline-left animate-on-scroll">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-date">2020 – 2024</div>
-                        <h3 class="timeline-role">B.Sc. Computer Science</h3>
-                        <p class="timeline-company"><i data-feather="book" class="w-3 h-3 inline mr-1"></i> University</p>
-                        <p class="timeline-desc">Focused on software engineering, algorithms, data structures, and mobile application development.</p>
-                        <div class="timeline-tags">
-                            <span>CS</span><span>Software Engineering</span><span>Algorithms</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRINCIPLES SECTION -->
-        <section id="principles" class="py-16 animate-on-scroll">
-            <div class="text-center mb-12">
-                <p class="section-label">HOW I WORK</p>
-                <div class="flex justify-center items-center gap-4">
-                    <h2 id="principles-title" class="section-heading transition-colors duration-500">Core Principles</h2>
-                    <button id="add-principle-btn" class="hidden font-bold p-2 rounded-full transition"><i data-feather="plus"></i></button>
-                </div>
-                <div id="principles-underline" class="section-title-underline mt-4 mx-auto"></div>
-            </div>
-            <div id="principles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div id="principles-loader" class="loader col-span-3"></div>
-            </div>
-        </section>
-
-        <!-- SKILLS SECTION -->
-        <section id="skills" class="py-16 animate-on-scroll">
-            <div class="text-center mb-12">
-                <p class="section-label">WHAT I USE</p>
-                <div class="flex justify-center items-center gap-4">
-                    <h2 id="skills-title" class="section-heading transition-colors duration-500">Technical Skills</h2>
-                    <button id="add-skill-btn" class="hidden font-bold p-2 rounded-full transition"><i data-feather="plus"></i></button>
-                </div>
-                <div id="skills-underline" class="section-title-underline mt-4 mx-auto"></div>
-            </div>
-            <div id="skills-container" class="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-x-10 gap-y-8">
-                <div id="skills-loader" class="loader"></div>
-            </div>
-        </section>
-
-        <!-- PROJECTS SECTION -->
-        <section id="projects" class="py-16 animate-on-scroll">
-            <div class="flex justify-between items-end mb-10">
-                <div>
-                    <p class="section-label">WHAT I BUILT</p>
-                    <h2 id="projects-title" class="section-heading transition-colors duration-500">Projects</h2>
-                    <div class="section-title-underline mt-2" id="projects-underline-line"></div>
-                </div>
-                <button id="add-project-btn" class="hidden font-bold py-2 px-4 rounded-lg transition text-sm">
-                    + Add Project
-                </button>
-            </div>
-            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div id="projects-loader" class="loader"></div>
-            </div>
-        </section>
-
-        <!-- TESTIMONIALS SECTION -->
-        <section id="testimonials" class="py-16 animate-on-scroll">
-            <div class="text-center mb-12">
-                <p class="section-label">WHAT PEOPLE SAY</p>
-                <h2 class="section-heading transition-colors duration-500">Feedback & Reviews</h2>
-                <div class="section-title-underline mt-4 mx-auto"></div>
-            </div>
-            <div id="testimonials-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-10">
-                <div id="testimonials-loader" class="loader col-span-3"></div>
-            </div>
-            <div class="text-center">
-                <button id="leave-feedback-btn" class="cv-btn">
-                    <i data-feather="message-square" class="w-4 h-4"></i>
-                    <span>Leave a Review</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- CONTACT SECTION -->
-        <section id="contact" class="py-16 text-center animate-on-scroll">
-            <p class="section-label">LET'S TALK</p>
-            <h2 id="contact-title" class="section-heading mb-2 transition-colors duration-500">Get In Touch</h2>
-            <div id="contact-underline" class="section-title-underline mt-4 mb-8 mx-auto"></div>
-            <p id="contact-text" class="text-lg max-w-2xl mx-auto mb-10 transition-colors duration-500 text-gray-400">
-                I'm always excited to discuss new projects or opportunities. Feel free to reach out!
-            </p>
-            <div class="flex flex-col items-center justify-center space-y-4">
-                <div id="email-container" class="flex flex-col md:flex-row items-center justify-center rounded-2xl p-4 transition-colors duration-500 gap-3">
-                    <span id="email-text" class="text-base md:text-lg font-mono transition-colors duration-500 break-all"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6614090403141214090b07081f4802031026010b070f0a4805090b">[email&#160;protected]</a></span>
-                    <button id="copy-email-btn" class="w-full justify-center md:w-auto p-3 rounded-xl flex items-center font-semibold transition-colors duration-500">
-                        <i data-feather="copy" class="w-5 h-5"></i>
-                        <span id="copy-btn-text" class="ml-2">Copy</span>
-                    </button>
-                </div>
-                <p id="copy-success-msg" class="text-green-400 h-5 -mt-2 transition-opacity opacity-0">Copied to clipboard!</p>
-                <a id="mailto-btn" href="/cdn-cgi/l/email-protection#40322f22253234322f2d212e396e24253600272d21292c6e232f2d" class="font-bold py-3 px-8 rounded-xl transition text-lg flex items-center space-x-2">
-                    <i data-feather="mail" class="w-5 h-5"></i>
-                    <span>Email Me Directly</span>
-                </a>
-            </div>
-        </section>
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle" title="Toggle dark/light mode">🌙</button>
+      <button id="login-btn" class="nav-btn-ghost">Admin</button>
+      <button id="logout-btn" class="hidden nav-btn-ghost">Logout</button>
+      <button id="mobile-menu-btn" class="md:hidden p-2"><i id="menu-icon" data-feather="menu"></i></button>
     </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3">
+    <a href="#about" class="mobile-nav-link nav-link">About</a>
+    <a href="#process" class="mobile-nav-link nav-link">Process</a>
+    <a href="#work" class="mobile-nav-link nav-link">Work</a>
+    <a href="#tools" class="mobile-nav-link nav-link">Tools</a>
+    <a href="#contact" class="mobile-nav-link nav-link">Contact</a>
+  </div>
+</nav>
 
-    <!-- FOOTER -->
-    <footer id="footer" class="border-t mt-16 transition-colors duration-500">
-        <div class="container mx-auto px-6 py-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="font-bold text-lg tracking-wider" style="font-family:'Orbitron',sans-serif">Robert<span class="text-[#00f15e]">.</span>Romany</p>
-                <p class="text-sm">&copy; <span id="year"></span> Designed &amp; Built by Robert Romany Elshahat.</p>
-                <div class="flex gap-4">
-                    <a href="https://www.linkedin.com/in/robert-romany-dev/" target="_blank" class="footer-icon"><i data-feather="linkedin" class="w-4 h-4"></i></a>
-                    <a href="https://github.com/Robert-x1" target="_blank" class="footer-icon"><i data-feather="github" class="w-4 h-4"></i></a>
-                    <a href="https://web.facebook.com/RobertRomanySoftwareEngineer" target="_blank" class="footer-icon"><i data-feather="facebook" class="w-4 h-4"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ========== MODALS ========== -->
-
-    <!-- Admin Login Modal -->
-    <div id="login-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-sm transform scale-95">
-            <h3 class="text-2xl font-bold mb-2" style="font-family:'Orbitron',sans-serif">Admin Login</h3>
-            <p class="text-xs text-gray-400 mb-6 font-mono">AUTHORIZED ACCESS ONLY</p>
-            <form id="login-form">
-                <input type="email" id="email" placeholder="Email" class="modal-input w-full p-3 rounded-xl mb-4 focus:outline-none focus:ring-2" required>
-                <input type="password" id="password" placeholder="Password" class="modal-input w-full p-3 rounded-xl mb-4 focus:outline-none focus:ring-2" required>
-                <button type="submit" id="login-submit-btn" class="w-full text-black font-bold py-3 px-4 rounded-xl transition">Login</button>
-                <p id="login-error" class="text-red-400 text-sm mt-2 text-center"></p>
-            </form>
-        </div>
+<!--  HERO  -->
+<section id="hero" class="min-h-screen flex items-center relative overflow-hidden pt-16">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="grain-overlay"></div>
+  <div class="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center py-20">
+    <div class="animate-on-scroll">
+      <div class="hero-badge mb-6">
+        <span class="hero-badge-dot"></span>
+        Available for freelance
+      </div>
+      <h1 class="hero-name font-serif" id="hero-name">Sandy Ayman</h1>
+      <div class="hero-title-row">
+        <span class="hero-title" id="hero-title">UI/UX Designer</span>
+      </div>
+      <p class="hero-typewriter mt-2"><span id="typewriter"></span><span class="tw-cursor">|</span></p>
+      <p class="hero-desc mt-5 text-[#6D28D9]/70 max-w-md" id="hero-subtitle">Turning complex problems into elegant, user-centered digital experiences.</p>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a href="#work" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-ghost">Get In Touch</a>
+      </div>
+      <div class="flex gap-4 mt-6 items-center">
+        <span class="text-sm text-[#7C3AED]/50">Find me on</span>
+        <a id="social-behance" href="#" target="_blank" class="social-chip">Behance</a>
+        <a id="social-dribbble" href="#" target="_blank" class="social-chip">Dribbble</a>
+        <a id="social-linkedin" href="#" target="_blank" class="social-chip">LinkedIn</a>
+        <button id="edit-social-btn" class="hidden">✏️</button>
+      </div>
+      <div class="flex gap-4 mt-4">
+        <button id="edit-hero-name-btn" class="edit-icon hidden">✏️ Name</button>
+        <button id="edit-hero-subtitle-btn" class="edit-icon hidden">✏️ Subtitle</button>
+      </div>
     </div>
-
-    <!-- Project Add/Edit Modal -->
-    <div id="project-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-3xl transform scale-95 max-h-screen overflow-y-auto">
-            <h3 id="project-modal-title" class="text-2xl font-bold mb-6">Add New Project</h3>
-            <form id="project-form">
-                <input type="hidden" id="project-id">
-                <div class="grid grid-cols-1 gap-6">
-                    <input type="text" id="project-title" placeholder="Project Title" class="modal-input p-3 rounded-xl" required>
-                    <textarea id="project-description" placeholder="Project Description" class="modal-input p-3 rounded-xl h-32" required></textarea>
-                    <input type="url" id="project-thumbnail-url" placeholder="Thumbnail Image URL" class="modal-input p-3 rounded-xl" required>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Additional Images</label>
-                        <div id="additional-images-container" class="space-y-4"></div>
-                        <button type="button" id="add-image-btn" class="mt-4 font-semibold py-2 px-4 rounded-xl text-sm">Add Image</button>
-                    </div>
-                    <input type="text" id="project-tech" placeholder="Technologies (comma separated)" class="modal-input p-3 rounded-xl" required>
-                    <input type="url" id="project-source-link" placeholder="Source Code URL" class="modal-input p-3 rounded-xl">
-                    <input type="url" id="project-live-link" placeholder="Live/Google Play URL" class="modal-input p-3 rounded-xl">
-                </div>
-                <div class="flex justify-end space-x-4 mt-6">
-                    <button type="button" class="modal-close bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
-                    <button type="submit" id="project-submit-btn" class="text-black font-bold py-2 px-4 rounded-xl flex items-center">
-                        <span id="project-submit-text">Save Project</span>
-                    </button>
-                </div>
-            </form>
+    <div class="hero-visual animate-on-scroll">
+      <div class="hero-frame">
+        <div class="frame-screen">
+          <div class="frame-dot-row"><span></span><span></span><span></span></div>
+          <div class="frame-content">
+            <div class="frame-rect w-3/4 h-3 mb-3"></div>
+            <div class="frame-rect w-1/2 h-3 mb-6"></div>
+            <div class="frame-img"></div>
+            <div class="frame-rect w-full h-3 mt-4"></div>
+            <div class="frame-rect w-2/3 h-3 mt-2"></div>
+          </div>
         </div>
-    </div>
-
-    <!-- Project Detail Modal -->
-    <div id="project-detail-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-4xl transform scale-95 max-h-screen flex flex-col">
-            <div class="flex-shrink-0 flex justify-between items-start mb-4">
-                <h3 id="detail-title" class="text-3xl font-bold"></h3>
-                <button class="modal-close text-3xl leading-none">&times;</button>
-            </div>
-            <div class="flex-grow overflow-y-auto pr-4 -mr-4">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div>
-                        <img id="detail-main-image" src="" alt="Main project image" class="w-full h-auto rounded-xl mb-4 bg-gray-700">
-                        <p id="detail-image-description" class="text-sm italic text-center h-5 mb-2"></p>
-                        <div id="detail-thumbnails" class="flex space-x-2 overflow-x-auto p-1"></div>
-                    </div>
-                    <div>
-                        <p id="detail-description" class="mb-6 leading-relaxed"></p>
-                        <h4 class="font-bold mb-2">Technologies Used:</h4>
-                        <div id="detail-tech" class="flex flex-wrap gap-2 mb-6"></div>
-                        <h4 class="font-bold mb-2">Links:</h4>
-                        <div id="detail-links" class="flex space-x-4"></div>
-                    </div>
-                </div>
-            </div>
+        <div class="palette-card">
+          <div class="pal-circle" style="background:#8B5CF6"></div>
+          <div class="pal-circle" style="background:#EC4899"></div>
+          <div class="pal-circle" style="background:#06B6D4"></div>
+          <div class="pal-circle" style="background:#F59E0B"></div>
         </div>
-    </div>
-
-    <!-- Principle Modal -->
-    <div id="principle-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-lg transform scale-95">
-            <h3 id="principle-modal-title" class="text-2xl font-bold mb-6">Add New Principle</h3>
-            <form id="principle-form">
-                <input type="hidden" id="principle-id">
-                <div class="grid grid-cols-1 gap-6">
-                    <input type="text" id="principle-title" placeholder="Principle Title" class="modal-input p-3 rounded-xl" required>
-                    <textarea id="principle-description" placeholder="Description" class="modal-input p-3 rounded-xl h-24" required></textarea>
-                    <input type="text" id="principle-icon" placeholder="Feather Icon Name (e.g., zap)" class="modal-input p-3 rounded-xl" required>
-                </div>
-                <div class="flex justify-end space-x-4 mt-6">
-                    <button type="button" class="modal-close bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
-                    <button type="submit" id="principle-submit-btn" class="text-black font-bold py-2 px-4 rounded-xl">Save Principle</button>
-                </div>
-            </form>
+        <div class="cursor-card">
+          <i data-feather="mouse-pointer" class="w-4 h-4"></i>
+          <span>User First</span>
         </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Skill Modal -->
-    <div id="skill-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-lg transform scale-95">
-            <h3 id="skill-modal-title" class="text-2xl font-bold mb-6">Add New Skill</h3>
-            <form id="skill-form">
-                <input type="hidden" id="skill-id">
-                <div class="grid grid-cols-1 gap-6">
-                    <input type="text" id="skill-name" placeholder="Skill Name (e.g., Kotlin)" class="modal-input p-3 rounded-xl" required>
-                    <input type="text" id="skill-icon-class" placeholder="Devicon Class (e.g., devicon-kotlin-plain)" class="modal-input p-3 rounded-xl" required>
-                    <p class="text-xs">Find icon classes on <a href="https://devicon.dev/" target="_blank" class="underline">devicon.dev</a></p>
-                </div>
-                <div class="flex justify-end space-x-4 mt-6">
-                    <button type="button" class="modal-close bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
-                    <button type="submit" id="skill-submit-btn" class="text-black font-bold py-2 px-4 rounded-xl">Save Skill</button>
-                </div>
-            </form>
+<!--  STATS  -->
+<section id="stats" class="py-16 relative">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num" id="stat-projects" data-target="3">0</div>
+        <div class="stat-suf">+</div>
+        <div class="stat-lbl" id="stat-lbl-projects">Case Studies</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-clients" data-target="5">0</div>
+        <div class="stat-suf">+</div>
+        <div class="stat-lbl" id="stat-lbl-clients">Happy Clients</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-hours" data-target="200">0</div>
+        <div class="stat-suf">+</div>
+        <div class="stat-lbl" id="stat-lbl-hours">Design Hours</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-screens" data-target="50">0</div>
+        <div class="stat-suf">+</div>
+        <div class="stat-lbl" id="stat-lbl-screens">Screens Designed</div>
+      </div>
+      <button id="edit-stats-btn" class="hidden edit-icon-sm ml-4">✏️</button>
+    </div>
+    <div class="visitor-chip mt-6 text-center">
+      <span>👁</span> <span id="visitor-count-display">— visitors</span>
+    </div>
+  </div>
+</section>
+
+<!--  ABOUT  -->
+<section id="about" class="py-24 relative">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="relative animate-on-scroll">
+        <div class="about-img-wrapper">
+          <img id="about-image" src="https://placehold.co/500x600/EDE9FE/8B5CF6?text=Sandy" alt="Sandy Ayman" class="about-img">
+          <div class="about-img-decor"></div>
         </div>
-    </div>
-
-    <!-- About Modal -->
-    <div id="about-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-lg transform scale-95">
-            <h3 class="text-2xl font-bold mb-6">Edit About Section</h3>
-            <form id="about-form">
-                <div class="grid grid-cols-1 gap-6">
-                    <textarea id="about-modal-text" placeholder="About me text" class="modal-input p-3 rounded-xl h-40" required></textarea>
-                    <input type="url" id="about-image-url" placeholder="Profile Image URL" class="modal-input p-3 rounded-xl" required>
-                </div>
-                <div class="flex justify-end space-x-4 mt-6">
-                    <button type="button" class="modal-close bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
-                    <button type="submit" id="about-submit-btn" class="text-black font-bold py-2 px-4 rounded-xl flex items-center">
-                        <span id="about-submit-text">Save</span>
-                    </button>
-                </div>
-            </form>
+        <button id="edit-about-btn" class="edit-icon hidden mt-3 w-full">✏️ Edit About</button>
+      </div>
+      <div class="animate-on-scroll">
+        <p class="section-eyebrow">ABOUT ME</p>
+        <h2 class="section-title font-serif">Designing with <em>Purpose</em></h2>
+        <p class="section-body mt-5" id="about-text">Passionate and detail-oriented UI/UX Designer with a strong academic background in Computer Science. Experienced in creating intuitive mobile and web interfaces for e-commerce, healthcare, and service platforms. I combine design thinking, usability principles, and technical knowledge to deliver meaningful and seamless user experiences.</p>
+        <div class="about-tags mt-6">
+          <span class="tag">Figma</span>
+          <span class="tag">User Research</span>
+          <span class="tag">Prototyping</span>
+          <span class="tag">Design Systems</span>
+          <span class="tag">Usability Testing</span>
         </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Text Edit Modal -->
-    <div id="text-edit-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-lg transform scale-95">
-            <h3 id="text-edit-modal-title" class="text-2xl font-bold mb-6">Edit Text</h3>
-            <form id="text-edit-form">
-                <input type="hidden" id="text-edit-doc">
-                <input type="hidden" id="text-edit-field">
-                <textarea id="text-edit-content" class="modal-input p-3 rounded-xl h-32 w-full" required></textarea>
-                <div class="flex justify-end space-x-4 mt-6">
-                    <button type="button" class="modal-close bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
-                    <button type="submit" id="text-edit-submit-btn" class="text-black font-bold py-2 px-4 rounded-xl">Save</button>
-                </div>
-            </form>
+<!-- DESIGN PROCESS -->
+<section id="process" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <p class="section-eyebrow">HOW I WORK</p>
+      <h2 class="section-title font-serif">My Design <em>Process</em></h2>
+    </div>
+    <div class="flex justify-end mb-4">
+      <button id="add-process-btn" class="hidden btn-admin-sm">+ Add Step</button>
+    </div>
+    <div id="process-grid" class="process-grid">
+      <div class="loader mx-auto"></div>
+    </div>
+  </div>
+</section>
+
+<!--  CASE STUDIES  -->
+<section id="work" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex justify-between items-end mb-12 flex-wrap gap-4">
+      <div>
+        <p class="section-eyebrow">SELECTED WORK</p>
+        <h2 class="section-title font-serif">Case <em>Studies</em></h2>
+      </div>
+      <div class="flex gap-3 items-center flex-wrap">
+        <div id="filter-bar" class="filter-bar">
+          <button class="filter-btn active" data-cat="all">All</button>
+          <button class="filter-btn" data-cat="Mobile App">Mobile</button>
+          <button class="filter-btn" data-cat="Web App">Web</button>
+          <button class="filter-btn" data-cat="Healthcare">Healthcare</button>
         </div>
+        <button id="add-case-btn" class="hidden btn-admin-sm">+ Add Case Study</button>
+      </div>
     </div>
+    <div id="cases-grid" class="cases-grid">
+      <div class="loader mx-auto"></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Testimonial Submit Modal -->
-    <div id="testimonial-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-lg transform scale-95">
-            <h3 class="text-2xl font-bold mb-2">Leave a Review</h3>
-            <p class="text-sm text-gray-400 mb-6">Share your experience working with Robert</p>
-            <form id="testimonial-form">
-                <div class="grid grid-cols-1 gap-4">
-                    <input type="text" id="t-name" placeholder="Your Name" class="modal-input p-3 rounded-xl" required>
-                    <input type="text" id="t-role" placeholder="Your Role / Company" class="modal-input p-3 rounded-xl" required>
-                    <textarea id="t-message" placeholder="Your review..." class="modal-input p-3 rounded-xl h-28" required></textarea>
-                    <div>
-                        <p class="text-sm font-medium mb-2">Rating</p>
-                        <div class="star-rating flex gap-2" id="star-rating">
-                            <span class="star text-3xl cursor-pointer" data-val="1">☆</span>
-                            <span class="star text-3xl cursor-pointer" data-val="2">☆</span>
-                            <span class="star text-3xl cursor-pointer" data-val="3">☆</span>
-                            <span class="star text-3xl cursor-pointer" data-val="4">☆</span>
-                            <span class="star text-3xl cursor-pointer" data-val="5">☆</span>
-                        </div>
-                        <input type="hidden" id="t-rating" value="0">
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-4 mt-6">
-                    <button type="button" class="modal-close bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
-                    <button type="submit" id="testimonial-submit-btn" class="text-black font-bold py-2 px-4 rounded-xl flex items-center gap-2">
-                        <i data-feather="send" class="w-4 h-4"></i>
-                        <span>Submit Review</span>
-                    </button>
-                </div>
-                <p class="text-xs text-gray-500 mt-3 text-center">Reviews are visible after admin approval.</p>
-            </form>
+<!--  TOOLS  -->
+<section id="tools" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <p class="section-eyebrow">MY TOOLKIT</p>
+      <h2 class="section-title font-serif">Tools I <em>Use</em></h2>
+    </div>
+    <div class="flex justify-end mb-4">
+      <button id="add-tool-btn" class="hidden btn-admin-sm">+ Add Tool</button>
+    </div>
+    <div id="tools-grid" class="tools-grid">
+      <div class="loader mx-auto"></div>
+    </div>
+  </div>
+</section>
+
+<!--  TIMELINE  -->
+<section id="timeline-sec" class="py-24">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex justify-between items-end mb-16">
+      <div>
+        <p class="section-eyebrow">MY JOURNEY</p>
+        <h2 class="section-title font-serif">Experience & <em>Education</em></h2>
+      </div>
+      <button id="add-timeline-btn" class="hidden btn-admin-sm">+ Add</button>
+    </div>
+    <div id="timeline-container" class="timeline-container">
+      <div class="timeline-spine"></div>
+    </div>
+  </div>
+</section>
+
+<!--  TESTIMONIALS  -->
+<section id="testimonials" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="section-eyebrow">KIND WORDS</p>
+      <h2 class="section-title font-serif">Client <em>Reviews</em></h2>
+    </div>
+    <div id="testimonials-grid" class="testimonials-grid mb-10">
+      <div class="loader mx-auto col-span-3"></div>
+    </div>
+    <div class="text-center">
+      <button id="leave-feedback-btn" class="btn-ghost">Leave a Review</button>
+    </div>
+  </div>
+</section>
+
+<!--  CONTACT  -->
+<section id="contact" class="py-24">
+  <div class="max-w-2xl mx-auto px-6 text-center">
+    <p class="section-eyebrow">GET IN TOUCH</p>
+    <h2 class="section-title font-serif">Let's <em>Create</em> Together</h2>
+    <p class="section-body mt-4">Have a project in mind? I'd love to bring your vision to life.</p>
+    <div class="email-box mt-10" id="email-container">
+      <span id="email-text">sandyayman782@gmail.com</span>
+      <button id="copy-email-btn" class="copy-btn"><i data-feather="copy" class="w-4 h-4"></i></button>
+      <a href="mailto:sandyayman782@gmail.com" id="mailto-btn" class="mailto-btn">Send Email</a>
+    </div>
+    <p id="copy-success-msg" class="text-violet-500 text-sm mt-2 opacity-0 transition-opacity">Copied! ✓</p>
+  </div>
+</section>
+
+<!--  FOOTER  -->
+<footer id="footer" class="py-8 border-t border-violet-100">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-violet-400">
+    <p>© <span id="year"></span> Sandy Ayman. Designed with ♥</p>
+    <p>UI/UX Designer</p>
+  </div>
+</footer>
+
+<!--                        MODALS                          -->
+
+<!-- Login Modal -->
+<div id="login-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 class="modal-title">Admin Login</h3>
+    <form id="login-form" class="space-y-4">
+      <input type="email" id="email" placeholder="Email" class="modal-input" required>
+      <input type="password" id="password" placeholder="Password" class="modal-input" required>
+      <p id="login-error" class="text-red-400 text-sm"></p>
+      <button type="submit" id="login-submit-btn" class="modal-btn w-full">Login</button>
+    </form>
+  </div>
+</div>
+
+<!-- Text Edit Modal (Hero) -->
+<div id="text-edit-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 id="text-edit-modal-title" class="modal-title">Edit Text</h3>
+    <form id="text-edit-form" class="space-y-4">
+      <input type="hidden" id="text-edit-doc">
+      <input type="hidden" id="text-edit-field">
+      <textarea id="text-edit-content" class="modal-input h-24" required></textarea>
+      <div class="modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="text-edit-submit-btn" class="modal-btn">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- About Modal -->
+<div id="about-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 class="modal-title">Edit About</h3>
+    <form id="about-form" class="space-y-4">
+      <textarea id="about-modal-text" placeholder="About me text..." class="modal-input h-32" required></textarea>
+      <input type="url" id="about-image-url" placeholder="Profile Image URL" class="modal-input">
+      <div class="modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="about-submit-btn" class="modal-btn">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Stats Modal -->
+<div id="stats-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 class="modal-title">Edit Stats</h3>
+    <form id="stats-form" class="grid grid-cols-2 gap-4">
+      <div><label class="modal-label">Case Studies</label><input type="number" id="se-projects" class="modal-input" min="0"></div>
+      <div><label class="modal-label">Clients</label><input type="number" id="se-clients" class="modal-input" min="0"></div>
+      <div><label class="modal-label">Design Hours</label><input type="number" id="se-hours" class="modal-input" min="0"></div>
+      <div><label class="modal-label">Screens</label><input type="number" id="se-screens" class="modal-input" min="0"></div>
+      <div class="col-span-2 modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="stats-submit-btn" class="modal-btn">Save Stats</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Process Step Modal -->
+<div id="process-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 id="process-modal-title" class="modal-title">Add Process Step</h3>
+    <form id="process-form" class="space-y-4">
+      <input type="hidden" id="process-id">
+      <input type="text" id="process-step" placeholder="Step number (e.g. 01)" class="modal-input" required>
+      <input type="text" id="process-icon" placeholder="Emoji icon (e.g. 🔍)" class="modal-input" required>
+      <input type="text" id="process-title-inp" placeholder="Step title (e.g. Empathize)" class="modal-input" required>
+      <textarea id="process-desc" placeholder="Short description..." class="modal-input h-20" required></textarea>
+      <div class="modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="process-submit-btn" class="modal-btn">Save Step</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Case Study Modal -->
+<div id="case-modal" class="modal-overlay hidden">
+  <div class="modal-card max-w-2xl max-h-[90vh] overflow-y-auto">
+    <h3 id="case-modal-title" class="modal-title">Add Case Study</h3>
+    <form id="case-form" class="space-y-4">
+      <input type="hidden" id="case-id">
+      <input type="text" id="case-title" placeholder="Project Title" class="modal-input" required>
+      <select id="case-category" class="modal-input">
+        <option value="Mobile App">Mobile App</option>
+        <option value="Web App">Web App</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="E-Commerce">E-Commerce</option>
+        <option value="Branding">Branding</option>
+      </select>
+      <textarea id="case-desc" placeholder="Brief description..." class="modal-input h-20" required></textarea>
+      <textarea id="case-challenge" placeholder="The Challenge..." class="modal-input h-20"></textarea>
+      <textarea id="case-solution" placeholder="The Solution..." class="modal-input h-20"></textarea>
+      <input type="text" id="case-tools" placeholder="Tools (Figma, Photoshop, ...)" class="modal-input">
+      <input type="url" id="case-thumbnail" placeholder="Cover Image URL" class="modal-input">
+      <input type="url" id="case-prototype" placeholder="Prototype/Figma Link (optional)" class="modal-input">
+      <div id="case-images-container" class="space-y-2"></div>
+      <button type="button" id="add-case-img-btn" class="btn-admin-sm w-full">+ Add Image</button>
+      <div class="modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="case-submit-btn" class="modal-btn">Save Case Study</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Case Study Detail Modal -->
+<div id="case-detail-modal" class="modal-overlay hidden">
+  <div class="modal-card max-w-3xl max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center mb-6">
+      <span id="detail-category" class="case-badge">Category</span>
+      <button class="modal-close text-3xl transition-opacity hover:opacity-70" style="color: var(--text);">&times;</button>
+    </div>
+    <h2 id="detail-title" class="font-serif text-3xl font-bold mb-4" style="color: var(--text);"></h2>
+    <img id="detail-main-img" src="" alt="" class="w-full rounded-2xl mb-6" style="max-height:70vh;object-fit:contain;background:transparent;">
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <div><h4 class="font-bold mb-2" style="color: var(--primary);">🎯 The Challenge</h4><p id="detail-challenge" class="text-sm leading-relaxed" style="color: var(--muted);"></p></div>
+      <div><h4 class="font-bold mb-2" style="color: var(--primary);">✨ The Solution</h4><p id="detail-solution" class="text-sm leading-relaxed" style="color: var(--muted);"></p></div>
+    </div>
+    <div class="mb-6"><h4 class="font-bold mb-3" style="color: var(--primary);">🛠 Tools Used</h4><div id="detail-tools" class="flex flex-wrap gap-2"></div></div>
+    <div id="detail-gallery" class="grid grid-cols-3 gap-3 mb-6"></div>
+    <div id="detail-links" class="flex gap-3"></div>
+  </div>
+</div>
+<!-- Tool Modal -->
+<div id="tool-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 id="tool-modal-title" class="modal-title">Add Tool</h3>
+    <form id="tool-form" class="space-y-4">
+      <input type="hidden" id="tool-id">
+      <input type="text" id="tool-name" placeholder="Tool name (e.g. Figma)" class="modal-input" required>
+      <input type="text" id="tool-icon" placeholder="Emoji icon (e.g. 🎨)" class="modal-input" required>
+      <select id="tool-category" class="modal-input">
+        <option value="Design">Design</option>
+        <option value="Prototyping">Prototyping</option>
+        <option value="Research">Research</option>
+        <option value="Technical">Technical</option>
+      </select>
+      <div>
+        <label class="modal-label">Proficiency</label>
+        <input type="range" id="tool-level" min="0" max="100" value="80" class="w-full accent-violet-500">
+        <span id="tool-level-display" class="text-sm text-violet-500">80%</span>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="tool-submit-btn" class="modal-btn">Save Tool</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Timeline Modal -->
+<div id="timeline-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 id="timeline-modal-title" class="modal-title">Add Timeline Item</h3>
+    <form id="timeline-form" class="space-y-4">
+      <input type="hidden" id="timeline-id">
+      <input type="text" id="timeline-year" placeholder="Year (e.g. 2024 – Present)" class="modal-input" required>
+      <input type="text" id="timeline-role" placeholder="Role / Degree" class="modal-input" required>
+      <input type="text" id="timeline-company" placeholder="Company / University" class="modal-input" required>
+      <input type="text" id="timeline-icon" placeholder="Emoji (e.g. 🎓)" class="modal-input">
+      <textarea id="timeline-desc" placeholder="Description..." class="modal-input h-20"></textarea>
+      <input type="text" id="timeline-tags" placeholder="Tags (comma separated)" class="modal-input">
+      <div class="modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="timeline-submit-btn" class="modal-btn">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Testimonial Submit Modal -->
+<div id="testimonial-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 class="modal-title">Leave a Review ✨</h3>
+    <form id="testimonial-form" class="space-y-4">
+      <input type="text" id="t-name" placeholder="Your Name" class="modal-input" required>
+      <input type="text" id="t-role" placeholder="Your Role / Company" class="modal-input">
+      <textarea id="t-message" placeholder="Your review..." class="modal-input h-24" required></textarea>
+      <div>
+        <p class="modal-label mb-2">Rating</p>
+        <div id="star-rating" class="flex gap-1">
+          <span class="star" data-val="1">★</span><span class="star" data-val="2">★</span>
+          <span class="star" data-val="3">★</span><span class="star" data-val="4">★</span><span class="star" data-val="5">★</span>
         </div>
-    </div>
+        <input type="hidden" id="t-rating" value="0">
+      </div>
+      <p class="text-xs text-violet-400">Reviews appear after admin approval.</p>
+      <div class="modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="testimonial-submit-btn" class="modal-btn">Submit Review</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-    <!-- Testimonial Admin Panel Modal -->
-    <div id="testimonial-admin-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-2xl transform scale-95 max-h-[90vh] flex flex-col">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold">Pending Reviews</h3>
-                <button class="modal-close text-2xl">&times;</button>
-            </div>
-            <div id="            <div id="pending-testimonials-list" class="flex-grow overflow-y-auto space-y-4">
-                <div class="loader mx-auto"></div>
-            </div>
-        </div>
-    </div>
+<!-- Testimonial Admin Modal -->
+<div id="testimonial-admin-modal" class="modal-overlay hidden">
+  <div class="modal-card max-w-2xl max-h-[90vh] flex flex-col">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="modal-title mb-0">Pending Reviews</h3>
+      <button class="modal-close text-2xl text-violet-300">&times;</button>
+    </div>    <div id="pending-testimonials-list" class="flex-grow overflow-y-auto space-y-4"></div>
+  </div>
+</div>
 
-    <!-- Timeline Modal -->
-    <div id="timeline-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-lg transform scale-95">
-            <h3 id="timeline-modal-title" class="text-2xl font-bold mb-6">Add Timeline Item</h3>
-            <form id="timeline-form">
-                <input type="hidden" id="timeline-id">
-                <div class="grid grid-cols-1 gap-4">
-                    <input type="text" id="timeline-year" placeholder="Year / Period (e.g. 2023 - Present)" class="modal-input p-3 rounded-xl" required>
-                    <input type="text" id="timeline-role" placeholder="Role / Title" class="modal-input p-3 rounded-xl" required>
-                    <input type="text" id="timeline-company" placeholder="Company / Institution" class="modal-input p-3 rounded-xl" required>
-                    <input type="text" id="timeline-icon" placeholder="Feather Icon (e.g. briefcase, book, users)" class="modal-input p-3 rounded-xl">
-                    <textarea id="timeline-desc" placeholder="Description" class="modal-input p-3 rounded-xl h-24" required></textarea>
-                    <input type="text" id="timeline-tags" placeholder="Tags (comma separated)" class="modal-input p-3 rounded-xl">
-                </div>
-                <div class="flex justify-end space-x-4 mt-6">
-                    <button type="button" class="modal-close bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
-                    <button type="submit" id="timeline-submit-btn" class="text-black font-bold py-2 px-4 rounded-xl">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
+<!-- Social Links Modal -->
+<div id="social-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h3 class="modal-title">Edit Social Links 🔗</h3>
+    <form id="social-form" class="space-y-4">
+      <div>
+        <label class="modal-label">Behance URL</label>
+        <input type="url" id="social-behance-url" placeholder="https://behance.net/..." class="modal-input">
+      </div>
+      <div>
+        <label class="modal-label">Dribbble URL</label>
+        <input type="url" id="social-dribbble-url" placeholder="https://dribbble.com/..." class="modal-input">
+      </div>
+      <div>
+        <label class="modal-label">LinkedIn URL</label>
+        <input type="url" id="social-linkedin-url" placeholder="https://linkedin.com/in/..." class="modal-input">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="modal-close modal-btn-ghost">Cancel</button>
+        <button type="submit" id="social-submit-btn" class="modal-btn">Save Links</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-    <!-- Stats Edit Modal -->
-    <div id="stats-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
-        <div class="modal-content p-8 rounded-2xl shadow-xl w-full max-w-md transform scale-95">
-            <h3 class="text-2xl font-bold mb-6">Edit Stats</h3>
-            <form id="stats-form">
-                <div class="grid grid-cols-2 gap-4">
-                    <div><label class="text-xs font-mono opacity-60 mb-1 block">Years</label>
-                        <input type="number" id="stat-edit-years" class="modal-input p-3 rounded-xl w-full" min="0"></div>
-                    <div><label class="text-xs font-mono opacity-60 mb-1 block">Apps Built</label>
-                        <input type="number" id="stat-edit-apps" class="modal-input p-3 rounded-xl w-full" min="0"></div>
-                    <div><label class="text-xs font-mono opacity-60 mb-1 block">Clients</label>
-                        <input type="number" id="stat-edit-clients" class="modal-input p-3 rounded-xl w-full" min="0"></div>
-                    <div><label class="text-xs font-mono opacity-60 mb-1 block">Lines (text)</label>
-                        <input type="text" id="stat-edit-lines" class="modal-input p-3 rounded-xl w-full"></div>
-                    <div><label class="text-xs font-mono opacity-60 mb-1 block">Label: Years</label>
-                        <input type="text" id="stat-edit-label-years" class="modal-input p-3 rounded-xl w-full"></div>
-                    <div><label class="text-xs font-mono opacity-60 mb-1 block">Label: Apps</label>
-                        <input type="text" id="stat-edit-label-apps" class="modal-input p-3 rounded-xl w-full"></div>
-                    <div class="col-span-2"><label class="text-xs font-mono opacity-60 mb-1 block">Label: Clients</label>
-                        <input type="text" id="stat-edit-label-clients" class="modal-input p-3 rounded-xl w-full"></div>
-                </div>
-                <div class="flex justify-end space-x-4 mt-6">
-                    <button type="button" class="modal-close bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
-                    <button type="submit" id="stats-submit-btn" class="text-black font-bold py-2 px-4 rounded-xl">Save Stats</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script type="module" src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>
